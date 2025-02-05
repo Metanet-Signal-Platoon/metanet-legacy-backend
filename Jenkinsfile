@@ -19,5 +19,10 @@ pipeline {
                         url: 'https://github.com/Metanet-Signal-Platoon/metanet-legacy-backend'
             }
         }
+        stage('test') {
+            steps {
+                echo "hello?"
+            }
+        }
     }
 }
