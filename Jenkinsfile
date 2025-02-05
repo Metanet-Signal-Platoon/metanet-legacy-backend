@@ -4,7 +4,7 @@ pipeline {
         gradle("gradle")
     }
     environment {
-        CONTAINER_IMAGE = "docker.io/metanet-legacy/backend:latest"
+        CONTAINER_IMAGE = "docker.io/kdh3213/backend:latest"
     }
     stages {
         stage('Jenkinsfile') {
