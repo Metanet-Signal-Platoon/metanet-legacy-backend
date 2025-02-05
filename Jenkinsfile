@@ -56,5 +56,31 @@ pipeline {
                 }
             }
         }
+        stage('Deploy to k8s') {
+            steps {
+                script {
+                    sh """
+                    ssh -o StrictHostKeyChecking=no root@192.168.0.13 '
+                    echo "SSH Connection Successful"
+
+                    echo "Applying Kubernetes Deployment"
+                    export KUBECONFIG=/root/admin.conf
+
+                    # 권한 파악, 현재 띄운 클러스터 노드 확인
+                    kubectl config view
+                    kubectl get nodes
+
+                    # 기존 배포물 삭제
+                    kubectl delete -f ~/kubernetes-cicd/1_backend_server_deployment.yaml --ignore-not-found=true
+                    kubectl delete -f ~/kubernetes-cicd/1_backend_server_service.yaml --ignore-not-found=true
+
+                    # 새로운 배포물 적용
+                    kubectl apply -f ~/kubernetes-cicd/1_backend_server_deployment.yaml
+                    kubectl apply -f ~/kubernetes-cicd/1_backend_server_service.yaml
+                    '
+                    """
+                }
+            }
+        }
     }
 }
