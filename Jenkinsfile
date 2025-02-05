@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                        credentialsId: 'organization-admin',
+                        credentialsId: 'github-app-jenkins',
                         url: 'https://github.com/Metanet-Signal-Platoon/metanet-legacy-backend'
             }
         }
