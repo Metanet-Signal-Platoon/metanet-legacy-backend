@@ -14,14 +14,9 @@ pipeline {
         }
         stage('Checkout') {
             steps {
-                checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: '*/main']],
-                        userRemoteConfigs: [[
-                                                    credentialsId: 'github-app-jenkins',
-                                                    url: 'https://github.com/Metanet-Signal-Platoon/metanet-legacy-backend.git'
-                                            ]]
-                ])
+                git branch: 'main',
+                        credentialsId: 'organization-admin',
+                        url: 'https://github.com/Metanet-Signal-Platoon/metanet-legacy-backend'
             }
         }
         stage('test') {
